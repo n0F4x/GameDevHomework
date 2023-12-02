@@ -18,7 +18,7 @@ public class Sprite : Element, IElement
     {
         var textureSize = new Vector2(_texture.Width, _texture.Height);
         var scale = Size / textureSize;
-        var origin = textureSize / 2 - textureSize / 2 * Origin;
+        var origin = textureSize / 2 + textureSize / 2 * Origin;
 
         spriteBatch.Draw(
             texture: _texture,

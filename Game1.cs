@@ -51,7 +51,7 @@ public class Game1 : Game
             new Element(
                 new Point(5, 5),
                 new Vector2(100, 100),
-                new Vector2(1, 1)
+                new Vector2(-1, -1)
             )
         )
         {
