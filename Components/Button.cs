@@ -13,7 +13,7 @@ public class Button : IElement
 
     private Point _position;
     private Vector2 _size;
-    private Vector2 _offset;
+    private Vector2 _origin;
 
     private bool _pressed = false;
 
@@ -83,12 +83,12 @@ public class Button : IElement
 
     Vector2 IElement.Origin
     {
-        get => _offset;
+        get => _origin;
         set
         {
-            _offset = value;
-            _defaultElement.Origin = _offset;
-            _pressedElement.Origin = _offset;
+            _origin = value;
+            _defaultElement.Origin = _origin;
+            _pressedElement.Origin = _origin;
         }
     }
 

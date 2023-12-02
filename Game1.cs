@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Homework.Components;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -10,6 +11,8 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     private Texture2D ballTexture;
+
+    private RectangleShape _rectangleShape;
 
     public Game1()
     {
@@ -42,6 +45,9 @@ public class Game1 : Game
 
         // TODO: use this.Content to load your game content here
         ballTexture = Content.Load<Texture2D>("icons/farm_icon");
+
+        _rectangleShape = new RectangleShape(GraphicsDevice, new Element(new Point(5, 5), new Vector2(100, 100)));
+        _rectangleShape.Color = Color.MediumVioletRed;
     }
 
     protected override void Update(GameTime gameTime)
@@ -75,6 +81,8 @@ public class Game1 : Game
             SpriteEffects.None,
             0f
         );
+
+        ((IElement)_rectangleShape).Draw(gameTime, _spriteBatch);
 
         _spriteBatch.End();
 

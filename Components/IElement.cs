@@ -28,5 +28,5 @@ public interface IElement : ICloneable
 
 public static class ElementExtensions
 {
-    public static Rectangle Bounds<T>(this T element) where T : IElement => new(element.Position, element.Size.ToPoint());
+    public static Rectangle Bounds(this IElement element) => new(element.Position, element.Size.ToPoint());
 }

@@ -1,9 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Homework.Components;
 
-public abstract class Element : IElement
+public class Element : IElement
 {
     private Point _position;
     private Vector2 _size;
