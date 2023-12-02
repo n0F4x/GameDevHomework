@@ -3,22 +3,15 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Homework.Components;
 
-public class RectangleShape : Element, IElement
+public class RectangleShape : Sprite, IElement
 {
-    private readonly GraphicsDevice _graphicsDevice;
-    private readonly Texture2D _texture;
-
-    public Color Color { get; set; } = Color.White;
-
-    public RectangleShape(GraphicsDevice graphicsDevice, IElement shape) : base(shape)
+    private static Texture2D CreateTexture(GraphicsDevice graphicsDevice)
     {
-        _graphicsDevice = graphicsDevice;
-        _texture = new Texture2D(_graphicsDevice, 1, 1);
-        _texture.SetData(new[] { Color.White });
+        var texture = new Texture2D(graphicsDevice, 2, 2);
+        texture.SetData(new[] { Color.White, Color.White, Color.White, Color.White });
+        return texture;
     }
 
-    void IElement.Draw(GameTime gameTime, SpriteBatch spriteBatch)
-    {
-        spriteBatch.Draw(_texture, this.Bounds(), Color);
-    }
+    public RectangleShape(GraphicsDevice graphicsDevice, IElement shape)
+        : base(shape, CreateTexture(graphicsDevice)) { }
 }

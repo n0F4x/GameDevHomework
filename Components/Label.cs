@@ -39,13 +39,15 @@ public class Label : Element, IElement
             scale.Y = Height / _textSize.Y;
         }
 
+        var origin = _textSize / 2 - _textSize / 2 * Origin;
+
         spriteBatch.DrawString(
             spriteFont: _font,
             text: _text,
             position: Position.ToVector2(),
             color: Color,
             rotation: 0f,
-            origin: Origin,
+            origin: origin,
             scale: scale,
             effects: SpriteEffects.None,
             layerDepth: 0f

@@ -4,7 +4,7 @@ using System;
 
 namespace Homework.Components;
 
-public interface IElement : ICloneable
+public interface IElement
 {
     public int X { get; set; }
     public int Y { get; set; }
@@ -26,7 +26,7 @@ public interface IElement : ICloneable
     public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch) { }
 }
 
-public static class ElementExtensions
+public static class IElementExtensions
 {
     public static Rectangle Bounds(this IElement element) => new(element.Position, element.Size.ToPoint());
 }

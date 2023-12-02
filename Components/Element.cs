@@ -45,9 +45,4 @@ public class Element : IElement
     }
 
     public Element(IElement shape) : this(shape.Position, shape.Size, shape.Origin) { }
-
-    public object Clone()
-    {
-        return MemberwiseClone();
-    }
 }
