@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Homework.Components;
 
-internal class Button : IElement
+public class Button : IElement
 {
     public delegate void HandleClick();
 
@@ -19,7 +19,7 @@ internal class Button : IElement
 
     public event HandleClick OnClick;
 
-    public override int X
+    int IElement.X
     {
         get => _position.X;
         set
@@ -29,7 +29,7 @@ internal class Button : IElement
             _pressedElement.X = _position.X;
         }
     }
-    public override int Y
+    int IElement.Y
     {
         get => _position.Y;
         set
@@ -39,7 +39,7 @@ internal class Button : IElement
             _pressedElement.Y = _position.Y;
         }
     }
-    public override Point Position
+    Point IElement.Position
     {
         get => _position;
         set
@@ -50,7 +50,7 @@ internal class Button : IElement
         }
     }
 
-    public override float Width
+    float IElement.Width
     {
         get => _size.X;
         set
@@ -60,7 +60,7 @@ internal class Button : IElement
             _pressedElement.Width = _size.X;
         }
     }
-    public override float Height
+    float IElement.Height
     {
         get => _size.Y;
         set
@@ -70,7 +70,7 @@ internal class Button : IElement
             _pressedElement.Height = _size.Y;
         }
     }
-    public override Vector2 Size
+    Vector2 IElement.Size
     {
         get => _size;
         set
@@ -81,30 +81,33 @@ internal class Button : IElement
         }
     }
 
-    public override Vector2 Offset
+    Vector2 IElement.Origin
     {
         get => _offset;
         set
         {
             _offset = value;
-            _defaultElement.Offset = _offset;
-            _pressedElement.Offset = _offset;
+            _defaultElement.Origin = _offset;
+            _pressedElement.Origin = _offset;
         }
     }
 
-    public Button(IElement defaultElement, IElement pressedElement = null)
+    public Button(IElement shape, IElement defaultElement, IElement pressedElement = null)
     {
         _defaultElement = defaultElement;
         _pressedElement = pressedElement ?? defaultElement;
+
+        _defaultElement.ReShape(shape);
+        _pressedElement.ReShape(shape);
     }
 
-    public override void Update(GameTime gameTime)
+    void IElement.Update(GameTime gameTime)
     {
         var mouseState = Mouse.GetState();
 
         var previousPressed = _pressed;
         var mousePressed = mouseState.LeftButton == ButtonState.Pressed;
-        var mouseHovers = Bounds.Contains(mouseState.Position);
+        var mouseHovers = this.Bounds().Contains(mouseState.Position);
         _pressed = mousePressed && mouseHovers;
 
         if (previousPressed && !mousePressed)
@@ -113,7 +116,7 @@ internal class Button : IElement
         }
     }
 
-    public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    void IElement.Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         if (_pressed)
         {
@@ -123,5 +126,10 @@ internal class Button : IElement
         {
             _defaultElement.Draw(gameTime, spriteBatch);
         }
+    }
+
+    public object Clone()
+    {
+        return MemberwiseClone();
     }
 }

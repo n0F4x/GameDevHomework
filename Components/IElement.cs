@@ -1,33 +1,32 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Homework.Components;
 
-abstract class IElement
+public interface IElement : ICloneable
 {
-    public abstract int X { get; set; }
-    public abstract int Y { get; set; }
-    public abstract Point Position { get; set; }
+    public int X { get; set; }
+    public int Y { get; set; }
+    public Point Position { get; set; }
 
-    public abstract float Width { get; set; }
-    public abstract float Height { get; set; }
-    public abstract Vector2 Size { get; set; }
+    public float Width { get; set; }
+    public float Height { get; set; }
+    public Vector2 Size { get; set; }
 
-    public abstract Vector2 Offset { get; set; }
+    public Vector2 Origin { get; set; }
 
-    public virtual Rectangle Bounds
+    public void ReShape(IElement shape)
     {
-        get
-        {
-            return new Rectangle(Position, Size.ToPoint());
-        }
-        set
-        {
-            Position = value.Location;
-            Size = value.Size.ToVector2();
-        }
+        Position = shape.Position;
+        Size = shape.Size;
     }
 
     public virtual void Update(GameTime gameTime) { }
     public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch) { }
+}
+
+public static class ElementExtensions
+{
+    public static Rectangle Bounds<T>(this T element) where T : IElement => new(element.Position, element.Size.ToPoint());
 }
