@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 namespace Homework.Scenes;
@@ -31,8 +32,8 @@ internal class SceneManager
         _active_scene?.Update(gameTime);
     }
 
-    public void Draw(GameTime gameTime)
+    public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
-        _active_scene?.Draw(gameTime);
+        _active_scene?.Draw(gameTime, spriteBatch);
     }
 }
