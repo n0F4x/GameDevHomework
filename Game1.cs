@@ -10,7 +10,7 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    private Texture2D farmIconTexture;
+    private Texture2D _farmIconTexture;
 
     private RectangleShape _rectangleShape;
 
@@ -44,7 +44,7 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         // TODO: use this.Content to load your game content here
-        farmIconTexture = Content.Load<Texture2D>("icons/farm_icon");
+        _farmIconTexture = AssetManager.LoadTexture(Content, "icons/farm_icon");
 
         _rectangleShape = new RectangleShape(
             GraphicsDevice,
@@ -53,8 +53,10 @@ public class Game1 : Game
                 new Vector2(100, 100),
                 new Vector2(1, 1)
             )
-        );
-        _rectangleShape.Color = Color.MediumVioletRed;
+        )
+        {
+            Color = Color.MediumVioletRed
+        };
     }
 
     protected override void Update(GameTime gameTime)
@@ -82,7 +84,7 @@ public class Game1 : Game
                 new Point(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2),
                 new Vector2(300, 300)
             ),
-            farmIconTexture
+            AssetManager.GetTexture("icons/farm_icon")
         )).Draw(gameTime, _spriteBatch);
 
         ((IElement)_rectangleShape).Draw(gameTime, _spriteBatch);
