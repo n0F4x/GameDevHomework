@@ -10,6 +10,7 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+    private TextBox _textBox;
 
     private RectangleShape _rectangleShape;
 
@@ -55,6 +56,16 @@ public class Game1 : Game
         {
             Color = Color.MediumVioletRed
         };
+
+        _textBox = new TextBox(
+            new Element(
+                new Point(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2),
+                new Vector2(300, 100)
+            ),
+            Window,
+            AssetManager.LoadFont(Content, "DancingScript"),
+            "Name"
+        );
     }
 
     protected override void Update(GameTime gameTime)
@@ -66,6 +77,7 @@ public class Game1 : Game
         }
 
         // TODO: Add your update logic here
+        _textBox.Update(gameTime);
 
         base.Update(gameTime);
     }
@@ -87,14 +99,7 @@ public class Game1 : Game
 
         ((IElement)_rectangleShape).Draw(gameTime, _spriteBatch);
 
-        ((IElement)new Label(
-            new Element(
-                new Point(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2),
-                new Vector2(300, 300)
-            ),
-            AssetManager.LoadFont(Content, "DancingScript"),
-            "Name"
-        )).Draw(gameTime, _spriteBatch);
+        ((IElement)_textBox).Draw(gameTime, _spriteBatch);
 
         _spriteBatch.End();
 

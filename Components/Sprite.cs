@@ -14,7 +14,7 @@ public class Sprite : Element, IElement
         _texture = texture;
     }
 
-    void IElement.Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         var textureSize = new Vector2(_texture.Width, _texture.Height);
         var scale = Size / textureSize;

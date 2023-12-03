@@ -27,9 +27,9 @@ public class Label : Element, IElement
         Text = text;
     }
 
-    void IElement.Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
-        Vector2 scale = new(Width / _textSize.X, Height / _textSize.Y);
+        Vector2 scale = new(Width / _textSize.X, 1.5f * Height / _textSize.Y);
         var origin = _textSize / 2 + _textSize / 2 * Origin;
 
         spriteBatch.DrawString(

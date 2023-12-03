@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Homework.Components;
 
@@ -28,5 +27,9 @@ public interface IElement
 
 public static class IElementExtensions
 {
-    public static Rectangle Bounds(this IElement element) => new(element.Position, element.Size.ToPoint());
+    public static Rectangle Bounds(this IElement element)
+        => new(
+            (element.Position.ToVector2() - (element.Size / 2 + element.Size / 2 * element.Origin)).ToPoint(),
+            element.Size.ToPoint()
+        );
 }

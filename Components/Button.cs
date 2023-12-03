@@ -101,7 +101,7 @@ public class Button : IElement
         _pressedElement.ReShape(shape);
     }
 
-    void IElement.Update(GameTime gameTime)
+    public virtual void Update(GameTime gameTime)
     {
         var mouseState = Mouse.GetState();
 
@@ -116,7 +116,7 @@ public class Button : IElement
         }
     }
 
-    void IElement.Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         if (_pressed)
         {
@@ -132,4 +132,7 @@ public class Button : IElement
     {
         return MemberwiseClone();
     }
+
+    protected IElement DefaultElement { get { return _defaultElement; } }
+    protected IElement PressedElement { get { return _pressedElement; } }
 }
