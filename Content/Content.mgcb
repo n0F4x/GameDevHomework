@@ -73,6 +73,18 @@
 /processorParam:TextureFormat=Color
 /build:../Resources/Assets/digits/0.png;digits/0.png
 
+#begin ../Resources/Assets/farmhouse.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Resources/Assets/farmhouse.png;farmhouse.png
+
 #begin ../Resources/Assets/icons/farm_icon.png
 /importer:TextureImporter
 /processor:TextureProcessor
