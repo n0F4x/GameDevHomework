@@ -29,7 +29,7 @@ public static class IElementExtensions
 {
     public static Rectangle Bounds(this IElement element)
         => new(
-            (element.Position.ToVector2() - (element.Size / 2 + element.Size / 2 * element.Origin)).ToPoint(),
+            element.Position - (element.Size / 2 + element.Size / 2 * element.Origin).ToPoint(),
             element.Size.ToPoint()
         );
 }

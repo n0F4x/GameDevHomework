@@ -10,9 +10,10 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    private TextBox _textBox;
 
+    private TextBox _textBox;
     private RectangleShape _rectangleShape;
+    private Button _login_button;
 
     public Game1()
     {
@@ -57,6 +58,20 @@ public class Game1 : Game
             Color = Color.MediumVioletRed
         };
 
+        _login_button = new Button(
+            new Element(
+                new Point(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2) + new Point(300, 0),
+                new Vector2(300, 100)
+            ),
+            new Sprite(
+                new Element(
+                    Point.Zero,
+                    Vector2.Zero
+                ),
+                AssetManager.LoadTexture(Content, "login_btn")
+            )
+        );
+
         _textBox = new TextBox(
             new Element(
                 new Point(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2),
@@ -78,6 +93,7 @@ public class Game1 : Game
 
         // TODO: Add your update logic here
         _textBox.Update(gameTime);
+        _login_button.Update(gameTime);
 
         base.Update(gameTime);
     }
@@ -89,17 +105,19 @@ public class Game1 : Game
         // TODO: Add your drawing code here
         _spriteBatch.Begin();
 
-        ((IElement)new Sprite(
+        new Sprite(
             new Element(
-                new Point(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2),
-                new Vector2(300, 300)
+                new Point(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2) - new Point(0, 150),
+                new Vector2(600, 300)
             ),
             AssetManager.LoadTexture(Content, "logo")
-        )).Draw(gameTime, _spriteBatch);
+        ).Draw(gameTime, _spriteBatch);
 
-        ((IElement)_rectangleShape).Draw(gameTime, _spriteBatch);
+        _rectangleShape.Draw(gameTime, _spriteBatch);
 
-        ((IElement)_textBox).Draw(gameTime, _spriteBatch);
+        _textBox.Draw(gameTime, _spriteBatch);
+
+        _login_button.Draw(gameTime, _spriteBatch);
 
         _spriteBatch.End();
 
