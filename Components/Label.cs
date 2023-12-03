@@ -29,16 +29,7 @@ public class Label : Element, IElement
 
     void IElement.Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
-        Vector2 scale = Vector2.One;
-        if (_textSize.X > Width)
-        {
-            scale.X = Width / _textSize.X;
-        }
-        if (_textSize.Y > Height)
-        {
-            scale.Y = Height / _textSize.Y;
-        }
-
+        Vector2 scale = new(Width / _textSize.X, Height / _textSize.Y);
         var origin = _textSize / 2 + _textSize / 2 * Origin;
 
         spriteBatch.DrawString(

@@ -10,7 +10,6 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    private Texture2D _farmIconTexture;
 
     private RectangleShape _rectangleShape;
 
@@ -44,7 +43,6 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         // TODO: use this.Content to load your game content here
-        _farmIconTexture = AssetManager.LoadTexture(Content, "icons/farm_icon");
 
         _rectangleShape = new RectangleShape(
             GraphicsDevice,
@@ -74,7 +72,7 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(Color.Black);
 
         // TODO: Add your drawing code here
         _spriteBatch.Begin();
@@ -84,10 +82,19 @@ public class Game1 : Game
                 new Point(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2),
                 new Vector2(300, 300)
             ),
-            AssetManager.GetTexture("icons/farm_icon")
+            AssetManager.LoadTexture(Content, "logo")
         )).Draw(gameTime, _spriteBatch);
 
         ((IElement)_rectangleShape).Draw(gameTime, _spriteBatch);
+
+        ((IElement)new Label(
+            new Element(
+                new Point(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2),
+                new Vector2(300, 300)
+            ),
+            AssetManager.LoadFont(Content, "DancingScript"),
+            "Name"
+        )).Draw(gameTime, _spriteBatch);
 
         _spriteBatch.End();
 
