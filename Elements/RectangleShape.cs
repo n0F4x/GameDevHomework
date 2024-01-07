@@ -13,6 +13,8 @@ public class RectangleShape : Sprite
         return texture;
     }
 
-    public RectangleShape(GraphicsDevice graphicsDevice, IShape shape)
-        : base(shape, CreateTexture(graphicsDevice)) { }
+    public RectangleShape(IShape shape, GraphicsDevice graphicsDevice)
+        : base(shape, CreateTexture(graphicsDevice))
+    {
+    }
 }

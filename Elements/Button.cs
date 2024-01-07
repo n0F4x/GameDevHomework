@@ -26,7 +26,7 @@ public class Button : ShapeGroup, IElement
         _pressedElement = pressedElement ?? defaultElement;
     }
 
-    public virtual void Update(GameTime gameTime)
+    public void Update(GameTime gameTime)
     {
         var mouseState = Mouse.GetState();
 
@@ -41,7 +41,7 @@ public class Button : ShapeGroup, IElement
         }
     }
 
-    public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         if (_pressed)
         {
@@ -57,7 +57,4 @@ public class Button : ShapeGroup, IElement
     {
         return MemberwiseClone();
     }
-
-    protected IElement DefaultElement => _defaultElement;
-    protected IElement PressedElement => _pressedElement;
 }

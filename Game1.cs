@@ -48,12 +48,12 @@ public class Game1 : Game
         // TODO: use this.Content to load your game content here
 
         _rectangleShape = new RectangleShape(
-            GraphicsDevice,
             new Shape(
                 new Point(5, 5),
                 new Vector2(100, 100),
                 new Vector2(-1, -1)
-            )
+            ),
+            GraphicsDevice
         )
         {
             Color = Color.MediumVioletRed
@@ -79,8 +79,10 @@ public class Game1 : Game
                 new Vector2(300, 100)
             ),
             Window,
+            GraphicsDevice,
             AssetManager.LoadFont(Content, "DancingScript"),
-            "Name"
+            "Name",
+            new TextBox.BorderOptions()
         );
     }
 
@@ -132,6 +134,5 @@ public class Game1 : Game
         // code that might directly change the backbuffer width height calling apply changes.
         // or passing changes that must occur in other classes or even calling there OnResize methods
         // though those methods can simply be added to the Windows event caller
-
     }
 }

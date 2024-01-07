@@ -2,10 +2,11 @@
 using Homework.Mixins;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using IDrawable = Homework.Interfaces.IDrawable;
 
 namespace Homework.Elements;
 
-public class Label : Shape, IElement
+public class Label : Shape, IDrawable
 {
     private readonly SpriteFont _font;
     private string _text;
@@ -31,7 +32,7 @@ public class Label : Shape, IElement
 
     public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
-        Vector2 scale = new(Width / _textSize.X, 1.5f * Height / _textSize.Y);
+        var scale = Size / _textSize;
         var origin = _textSize / 2 + _textSize / 2 * Origin;
 
         spriteBatch.DrawString(
