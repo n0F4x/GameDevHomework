@@ -1,4 +1,5 @@
-﻿using Homework.Components;
+﻿using Homework.Elements;
+using Homework.Mixins;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,12 +9,12 @@ namespace Homework;
 
 public class Game1 : Game
 {
-    private GraphicsDeviceManager _graphics;
+    private readonly GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
     private TextBox _textBox;
     private RectangleShape _rectangleShape;
-    private Button _login_button;
+    private Button _loginButton;
 
     public Game1()
     {
@@ -48,7 +49,7 @@ public class Game1 : Game
 
         _rectangleShape = new RectangleShape(
             GraphicsDevice,
-            new Element(
+            new Shape(
                 new Point(5, 5),
                 new Vector2(100, 100),
                 new Vector2(-1, -1)
@@ -58,13 +59,13 @@ public class Game1 : Game
             Color = Color.MediumVioletRed
         };
 
-        _login_button = new Button(
-            new Element(
+        _loginButton = new Button(
+            new Shape(
                 new Point(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2) + new Point(300, 0),
                 new Vector2(300, 100)
             ),
             new Sprite(
-                new Element(
+                new Shape(
                     Point.Zero,
                     Vector2.Zero
                 ),
@@ -73,7 +74,7 @@ public class Game1 : Game
         );
 
         _textBox = new TextBox(
-            new Element(
+            new Shape(
                 new Point(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2),
                 new Vector2(300, 100)
             ),
@@ -93,7 +94,7 @@ public class Game1 : Game
 
         // TODO: Add your update logic here
         _textBox.Update(gameTime);
-        _login_button.Update(gameTime);
+        _loginButton.Update(gameTime);
 
         base.Update(gameTime);
     }
@@ -106,7 +107,7 @@ public class Game1 : Game
         _spriteBatch.Begin();
 
         new Sprite(
-            new Element(
+            new Shape(
                 new Point(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2) - new Point(0, 150),
                 new Vector2(600, 300)
             ),
@@ -117,7 +118,7 @@ public class Game1 : Game
 
         _textBox.Draw(gameTime, _spriteBatch);
 
-        _login_button.Draw(gameTime, _spriteBatch);
+        _loginButton.Draw(gameTime, _spriteBatch);
 
         _spriteBatch.End();
 

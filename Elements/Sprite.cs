@@ -1,15 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Homework.Interfaces;
+using Homework.Mixins;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Homework.Components;
+namespace Homework.Elements;
 
-public class Sprite : Element, IElement
+public class Sprite : Shape, IElement
 {
     private readonly Texture2D _texture;
 
     public Color Color { get; set; } = Color.White;
 
-    public Sprite(IElement shape, Texture2D texture) : base(shape)
+    public Sprite(IShape shape, Texture2D texture) : base(shape)
     {
         _texture = texture;
     }

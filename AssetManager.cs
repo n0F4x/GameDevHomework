@@ -4,40 +4,40 @@ using System.Collections.Generic;
 
 namespace Homework;
 
-public class AssetManager
+public static class AssetManager
 {
-    private static readonly Dictionary<string, Texture2D> _textures = new();
-    private static readonly Dictionary<string, SpriteFont> _fonts= new();
+    private static readonly Dictionary<string, Texture2D> textures = new();
+    private static readonly Dictionary<string, SpriteFont> fonts= new();
 
     public static Texture2D LoadTexture(ContentManager content, string path)
     {
-        if (_textures.TryGetValue(path, out Texture2D texture))
+        if (textures.TryGetValue(path, out var texture))
         {
             return texture;
         }
 
-        _textures.Add(path, content.Load<Texture2D>(path));
-        return _textures[path];
+        textures.Add(path, content.Load<Texture2D>(path));
+        return textures[path];
     }
 
     public static Texture2D GetTexture(string path)
     {
-        return _textures[path];
+        return textures[path];
     }
 
     public static SpriteFont LoadFont(ContentManager content, string path)
     {
-        if (_fonts.TryGetValue(path, out SpriteFont font))
+        if (fonts.TryGetValue(path, out SpriteFont font))
         {
             return font;
         }
 
-        _fonts.Add(path, content.Load<SpriteFont>(path));
-        return _fonts[path];
+        fonts.Add(path, content.Load<SpriteFont>(path));
+        return fonts[path];
     }
 
     public static SpriteFont GetFont(string path)
     {
-        return _fonts[path];
+        return fonts[path];
     }
 }

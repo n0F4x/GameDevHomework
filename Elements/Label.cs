@@ -1,9 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Homework.Interfaces;
+using Homework.Mixins;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Homework.Components;
+namespace Homework.Elements;
 
-public class Label : Element, IElement
+public class Label : Shape, IElement
 {
     private readonly SpriteFont _font;
     private string _text;
@@ -21,7 +23,7 @@ public class Label : Element, IElement
 
     public Color Color { get; set; } = Color.White;
 
-    public Label(IElement shape, SpriteFont font, string text) : base(shape)
+    public Label(IShape shape, SpriteFont font, string text) : base(shape)
     {
         _font = font;
         Text = text;

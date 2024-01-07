@@ -1,9 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Homework.Interfaces;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Homework.Components;
+namespace Homework.Elements;
 
-public class RectangleShape : Sprite, IElement
+public class RectangleShape : Sprite
 {
     private static Texture2D CreateTexture(GraphicsDevice graphicsDevice)
     {
@@ -12,6 +13,6 @@ public class RectangleShape : Sprite, IElement
         return texture;
     }
 
-    public RectangleShape(GraphicsDevice graphicsDevice, IElement shape)
+    public RectangleShape(GraphicsDevice graphicsDevice, IShape shape)
         : base(shape, CreateTexture(graphicsDevice)) { }
 }
