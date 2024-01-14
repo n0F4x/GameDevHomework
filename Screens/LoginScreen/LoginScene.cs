@@ -1,4 +1,5 @@
-﻿using Homework.Elements;
+﻿using System;
+using Homework.Elements;
 using Homework.Interfaces;
 using Homework.Mixins;
 using Homework.Scenes;
@@ -17,6 +18,7 @@ public class LoginScene : IScene
     private UsernameTextBox _textBox;
     private Label _label;
     private LoginButton _loginButton;
+    private QuitButton _quitButton;
 
 
     public LoginScene(App app, SceneManager sceneManager)
@@ -64,12 +66,20 @@ public class LoginScene : IScene
             _app.GameState.PlayerName = _textBox.Text;
             _sceneManager.ActivateScene("main");
         });
+
+        _quitButton = new QuitButton(new Shape(
+                new Point(width, 0),
+                new Vector2(100, 75),
+                new Vector2(1, -1)
+            ), AssetManager.LoadFont(_app.Content, "DancingScript"),
+            () => _app.Exit());
     }
 
     public void Update(GameTime gameTime)
     {
         _textBox.Update(gameTime);
         _loginButton.Update(gameTime);
+        _quitButton.Update(gameTime);
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -78,5 +88,6 @@ public class LoginScene : IScene
         _textBox.Draw(gameTime, spriteBatch);
         _label.Draw(gameTime, spriteBatch);
         _loginButton.Draw(gameTime, spriteBatch);
+        _quitButton.Draw(gameTime, spriteBatch);
     }
 }

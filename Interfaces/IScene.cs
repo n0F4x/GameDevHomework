@@ -1,6 +1,10 @@
-﻿namespace Homework.Interfaces;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
-public interface IScene : IUpdateable, IDrawable
+namespace Homework.Interfaces;
+
+public interface IScene : IUpdateable
 {
     public void Init() {}
+    public void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 }

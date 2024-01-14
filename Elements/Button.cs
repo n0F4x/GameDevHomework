@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using IDrawable = Homework.Interfaces.IDrawable;
 
 namespace Homework.Elements;
 
@@ -11,19 +12,20 @@ public class Button : ShapeGroup, IElement
 {
     public delegate void HandleClick();
 
-    private readonly IElement _defaultElement;
-    private readonly IElement _pressedElement;
+    private readonly IDrawable _defaultDrawable;
+    private readonly IDrawable _hoveredDrawable;
 
     private bool _pressed;
+    private bool _hovered;
 
     public event HandleClick OnClick;
 
 
-    public Button(IShape shape, IElement defaultElement, IElement pressedElement = null)
-        : base(shape, pressedElement != null ? new List<IShape> { defaultElement, pressedElement } : new List<IShape> { defaultElement })
+    public Button(IShape shape, IDrawable defaultDrawable, IDrawable hoveredDrawable = null)
+        : base(shape, hoveredDrawable != null ? new List<IShape> { defaultDrawable, hoveredDrawable } : new List<IShape> { defaultDrawable })
     {
-        _defaultElement = defaultElement;
-        _pressedElement = pressedElement ?? defaultElement;
+        _defaultDrawable = defaultDrawable;
+        _hoveredDrawable = hoveredDrawable ?? defaultDrawable;
     }
 
     public void Update(GameTime gameTime)
@@ -34,6 +36,7 @@ public class Button : ShapeGroup, IElement
         var mousePressed = mouseState.LeftButton == ButtonState.Pressed;
         var mouseHovers = this.Bounds().Contains(mouseState.Position);
         _pressed = mousePressed && mouseHovers;
+        _hovered = mouseHovers;
 
         if (previousPressed && !mousePressed)
         {
@@ -43,13 +46,13 @@ public class Button : ShapeGroup, IElement
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
-        if (_pressed)
+        if (_hovered)
         {
-            _pressedElement.Draw(gameTime, spriteBatch);
+            _hoveredDrawable.Draw(gameTime, spriteBatch);
         }
         else
         {
-            _defaultElement.Draw(gameTime, spriteBatch);
+            _defaultDrawable.Draw(gameTime, spriteBatch);
         }
     }
 
