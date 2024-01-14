@@ -5,12 +5,12 @@ using Homework.Interfaces;
 
 namespace Homework.Scenes;
 
-internal class SceneManager
+public class SceneManager
 {
     private readonly Dictionary<string, IScene> _scenes = new();
     private readonly Stack<IScene> _history = new();
-    private IScene _active_scene;
-
+    private IScene _activeScene;
+    
     public void Add(IScene scene, string name)
     {
         _scenes.Add(name, scene);
@@ -19,22 +19,22 @@ internal class SceneManager
 
     public void ActivateScene(string sceneName)
     {
-        _history.Push(_active_scene);
-        _scenes.TryGetValue(sceneName, out _active_scene);
+        _history.Push(_activeScene);
+        _scenes.TryGetValue(sceneName, out _activeScene);
     }
 
     public void DeactivateScene()
     {
-        _active_scene = _history.Pop();
+        _activeScene = _history.Pop();
     }
 
     public void Update(GameTime gameTime)
     {
-        _active_scene?.Update(gameTime);
+        _activeScene?.Update(gameTime);
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
-        _active_scene?.Draw(gameTime, spriteBatch);
+        _activeScene?.Draw(gameTime, spriteBatch);
     }
 }
