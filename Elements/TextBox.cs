@@ -11,10 +11,8 @@ public class TextBox : Label, IElement
 {
     public class BorderOptions
     {
-        public int Width = 2;
-        public int Margin = 2;
-        public Color Color = Color.White;
-        public Color ActiveColor = Color.White;
+        public int Width = 5;
+        public int Margin = 10;
     }
 
     private readonly GraphicsDevice _graphicsDevice;
@@ -40,7 +38,8 @@ public class TextBox : Label, IElement
 
         if (mouseState.LeftButton == ButtonState.Pressed)
         {
-            _selected = this.Bounds().Contains(mouseState.Position);
+            _selected = ContentBorder().Contains(mouseState.Position);
+            Color = _selected ? Color.Gray : Color.White;
         }
     }
 
@@ -52,6 +51,11 @@ public class TextBox : Label, IElement
             border.Draw(gameTime, spriteBatch);
         }
     }
+
+    private Rectangle ContentBorder() => new(
+        Position - (Size / 2 + Size / 2 * Origin).ToPoint() - new Point(_borderOptions.Margin),
+        Size.ToPoint() + new Point(_borderOptions.Margin * 2)
+    );
 
     private void TextInputHandler(object sender, TextInputEventArgs args)
     {
@@ -75,21 +79,26 @@ public class TextBox : Label, IElement
         {
             new(
                 new Shape(
-                    Position - new Point(0, (int)(Height / 2)) + offset,
-                    new Vector2(Width + 2, _borderOptions.Width)),
+                    Position - new Point(0, (int)(Height / 2)) + offset - new Point(0, _borderOptions.Margin),
+                    new Vector2(Width + _borderOptions.Width * 2 + _borderOptions.Margin * 2, _borderOptions.Width),
+                    new Vector2(0, 1)
+                ),
                 _graphicsDevice),
             new(
-                new Shape(Position - new Point((int)(Width / 2), 0) + offset,
-                    new Vector2(_borderOptions.Width, Height + 2)),
+                new Shape(Position - new Point((int)(Width / 2), 0) + offset - new Point(_borderOptions.Margin, 0),
+                    new Vector2(_borderOptions.Width, Height + _borderOptions.Width * 2 + _borderOptions.Margin * 2),
+                    new Vector2(1, 0)),
                 _graphicsDevice),
             new(
                 new Shape(
-                    Position + new Point(0, (int)(Height / 2)) + offset,
-                    new Vector2(Width + 2, _borderOptions.Width)),
+                    Position + new Point(0, (int)(Height / 2)) + offset + new Point(0, _borderOptions.Margin),
+                    new Vector2(Width + _borderOptions.Width * 2 + _borderOptions.Margin * 2, _borderOptions.Width),
+                    new Vector2(0, -1)),
                 _graphicsDevice),
             new(
-                new Shape(Position + new Point((int)(Width / 2), 0) + offset,
-                    new Vector2(_borderOptions.Width, Height + 2)),
+                new Shape(Position + new Point((int)(Width / 2), 0) + offset + new Point(_borderOptions.Margin, 0),
+                    new Vector2(_borderOptions.Width, Height + _borderOptions.Width * 2 + _borderOptions.Margin * 2),
+                    new Vector2(-1, 0)),
                 _graphicsDevice)
         };
     }

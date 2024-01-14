@@ -3,11 +3,10 @@ using Homework.Mixins;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 
 namespace Homework;
 
-public class Game1 : Game
+public class App : Game
 {
     private readonly GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
@@ -16,22 +15,19 @@ public class Game1 : Game
     private RectangleShape _rectangleShape;
     private Button _loginButton;
 
-    public Game1()
+    public App()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
-
-        Window.AllowUserResizing = true;
-        Window.ClientSizeChanged += OnResize;
     }
 
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
 
-        var w = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width * 3 / 4;
-        var h = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 3 / 4;
+        var w = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+        var h = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 
         _graphics.PreferredBackBufferWidth = w;
         _graphics.PreferredBackBufferHeight = h;
@@ -125,14 +121,5 @@ public class Game1 : Game
         _spriteBatch.End();
 
         base.Draw(gameTime);
-    }
-
-    public void OnResize(object sender, EventArgs e)
-    {
-        // Additional code to execute when the user drags the window
-        // or in the case you programmatically change the screen or windows client screen size.
-        // code that might directly change the backbuffer width height calling apply changes.
-        // or passing changes that must occur in other classes or even calling there OnResize methods
-        // though those methods can simply be added to the Windows event caller
     }
 }

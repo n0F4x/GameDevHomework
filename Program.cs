@@ -1,2 +1,2 @@
-﻿using var game = new Homework.Game1();
+﻿using var game = new Homework.App();
 game.Run();
