@@ -27,5 +27,6 @@ public static class ShapeExtensions
     {
         shape.Position = other.Position;
         shape.Size = other.Size;
+        shape.Origin = other.Origin;
     }
 }

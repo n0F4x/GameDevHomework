@@ -13,9 +13,10 @@ public class LoginScene : IScene
 
     private readonly SceneManager _sceneManager;
 
-    private TextBox _textBox;
-    private RectangleShape _rectangleShape;
-    private Button _loginButton;
+    private Logo _logo;
+    private UsernameTextBox _textBox;
+    private Label _label;
+    private LoginButton _loginButton;
 
 
     public LoginScene(App app, SceneManager sceneManager)
@@ -26,44 +27,43 @@ public class LoginScene : IScene
 
     public void Init()
     {
-        _rectangleShape = new RectangleShape(
-            new Shape(
-                new Point(5, 5),
-                new Vector2(100, 100),
-                new Vector2(-1, -1)
-            ),
-            _app.GraphicsDevice
-        )
-        {
-            Color = Color.MediumVioletRed
-        };
+        var width = _app.GraphicsDevice.Viewport.Width;
+        var height = _app.GraphicsDevice.Viewport.Height;
 
-        _loginButton = new Button(
-            new Shape(
-                new Point(_app.GraphicsDevice.Viewport.Width / 2, _app.GraphicsDevice.Viewport.Height / 2) +
-                new Point(300, 0),
-                new Vector2(300, 100)
-            ),
-            new Sprite(
-                new Shape(
-                    Point.Zero,
-                    Vector2.Zero
-                ),
-                AssetManager.LoadTexture(_app.Content, "login_btn")
-            )
-        );
+        const int margin = -50;
+        const int lineHeight = 80;
 
-        _textBox = new TextBox(
+        _logo = new Logo(_app, new Shape(
+            new Point(width / 2, height / 2 + 100),
+            new Vector2(width * 2 / 3, height / 2),
+            new Vector2(0, 1)
+        ));
+
+        _textBox = new UsernameTextBox(_app, new Shape(
+            new Point(width / 2, height / 2 + 100),
+            new Vector2(width / 5, lineHeight),
+            new Vector2(0, -1)
+        ));
+
+        _label = new Label(
             new Shape(
-                new Point(_app.GraphicsDevice.Viewport.Width / 2, _app.GraphicsDevice.Viewport.Height / 2),
-                new Vector2(300, 100)
+                _textBox.Position - new Point((int)_textBox.Width + margin, 0),
+                new Vector2(150, _textBox.Height),
+                _textBox.Origin
             ),
-            _app.Window,
-            _app.GraphicsDevice,
             AssetManager.LoadFont(_app.Content, "DancingScript"),
-            "Name",
-            new TextBox.BorderOptions()
+            "Name:"
         );
+
+        _loginButton = new LoginButton(_app, new Shape(
+            _textBox.Position + new Point((int)_textBox.Width + margin, 0),
+            new Vector2(150, _textBox.Height),
+            _textBox.Origin
+        ), () =>
+        {
+            _app.GameState.PlayerName = _textBox.Text;
+            _sceneManager.ActivateScene("main");
+        });
     }
 
     public void Update(GameTime gameTime)
@@ -74,19 +74,9 @@ public class LoginScene : IScene
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
-        new Sprite(
-            new Shape(
-                new Point(_app.GraphicsDevice.Viewport.Width / 2, _app.GraphicsDevice.Viewport.Height / 2) -
-                new Point(0, 150),
-                new Vector2(600, 300)
-            ),
-            AssetManager.LoadTexture(_app.Content, "logo")
-        ).Draw(gameTime, spriteBatch);
-
-        _rectangleShape.Draw(gameTime, spriteBatch);
-
+        _logo.Draw(gameTime, spriteBatch);
         _textBox.Draw(gameTime, spriteBatch);
-
+        _label.Draw(gameTime, spriteBatch);
         _loginButton.Draw(gameTime, spriteBatch);
     }
 }

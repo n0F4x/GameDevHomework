@@ -1,4 +1,5 @@
 ﻿using Homework.Scenes;
+using Homework.Screens.MainScreen;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -10,6 +11,7 @@ public class App : Game
     private readonly GraphicsDeviceManager _graphics;
     private readonly SceneManager _sceneManager = new();
     private SpriteBatch _spriteBatch;
+    public GameState GameState { get; } = new();
 
     public App()
     {
@@ -32,8 +34,9 @@ public class App : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        
+
         _sceneManager.Add(new Screens.LoginScreen.LoginScene(this, _sceneManager), "login");
+        _sceneManager.Add(new MainScene(GameState), "main");
         _sceneManager.ActivateScene("login");
     }
 
@@ -46,7 +49,7 @@ public class App : Game
         }
 
         _sceneManager.Update(gameTime);
-        
+
         base.Update(gameTime);
     }
 
@@ -55,7 +58,7 @@ public class App : Game
         GraphicsDevice.Clear(Color.Black);
 
         _spriteBatch.Begin();
-        
+
         _sceneManager.Draw(gameTime, _spriteBatch);
 
         _spriteBatch.End();
