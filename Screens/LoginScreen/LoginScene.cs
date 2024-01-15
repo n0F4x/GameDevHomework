@@ -33,7 +33,7 @@ public class LoginScene : IScene
         var height = _app.GraphicsDevice.Viewport.Height;
 
         const int margin = -50;
-        const int lineHeight = 80;
+        const int lineHeight = 110;
 
         _logo = new Logo(_app, new Shape(
             new Point(width / 2, height / 2 + 100),

@@ -7,14 +7,14 @@ namespace Homework.Mixins;
 public class ShapeGroup : IShape
 {
     private readonly IShape _shape;
-    private readonly List<IShape> _shapes;
+    protected List<IShape> Shapes { get; }
 
     public virtual int X
     {
         get => _shape.X; set
         {
             _shape.X = value;
-            foreach (var shape in _shapes)
+            foreach (var shape in Shapes)
             {
                 shape.X = value;
             }
@@ -25,7 +25,7 @@ public class ShapeGroup : IShape
         get => _shape.Y; set
         {
             _shape.Y = value;
-            foreach (var shape in _shapes)
+            foreach (var shape in Shapes)
             {
                 shape.Y = value;
             }
@@ -41,7 +41,7 @@ public class ShapeGroup : IShape
         get => _shape.Width; set
         {
             _shape.Width = value;
-            foreach (var shape in _shapes)
+            foreach (var shape in Shapes)
             {
                 shape.Width = value;
             }
@@ -52,7 +52,7 @@ public class ShapeGroup : IShape
         get => _shape.Height; set
         {
             _shape.Height = value;
-            foreach (var shape in _shapes)
+            foreach (var shape in Shapes)
             {
                 shape.Height = value;
             }
@@ -68,7 +68,7 @@ public class ShapeGroup : IShape
         get => _shape.Origin; set
         {
             _shape.Origin = value;
-            foreach (var shape in _shapes)
+            foreach (var shape in Shapes)
             {
                 shape.Origin = value;
             }
@@ -78,7 +78,7 @@ public class ShapeGroup : IShape
     public ShapeGroup(IShape shape, List<IShape> shapes)
     {
         _shape = shape;
-        _shapes = shapes;
+        Shapes = shapes;
         this.Reshape(shape);
     }
 }

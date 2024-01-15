@@ -14,13 +14,13 @@ public class SceneManager
     public void Add(IScene scene, string name)
     {
         _scenes.Add(name, scene);
-        scene.Init();
     }
 
     public void ActivateScene(string sceneName)
     {
         _history.Push(_activeScene);
         _scenes.TryGetValue(sceneName, out _activeScene);
+        _activeScene?.Init();
     }
 
     public void DeactivateScene()

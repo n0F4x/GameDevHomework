@@ -11,7 +11,7 @@ public class QuitButton : Button
         : base(
             shape,
             new Label(shape, font, "Quit"),
-            new Label(shape, font, "Quit") { Color = Color.DarkRed }
+            new Label(shape, font, "Quit") { Color = Color.ForestGreen }
         )
     {
         OnClick += onClick;
