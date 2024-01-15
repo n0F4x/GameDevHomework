@@ -11,10 +11,6 @@ public class Crops : IUpdateable
 {
     private readonly GameState _gameState;
 
-    private Sprite _wheatSprite;
-    private Sprite _potatoSprite;
-    private Sprite _carrotSprite;
-
     private Button _wheatButton;
     private Button _potatoButton;
     private Button _carrotButton;
@@ -34,9 +30,12 @@ public class Crops : IUpdateable
 
     public void Update(GameTime gameTime)
     {
-        _wheatSprite.Color = _gameState.SelectedCrop == Crop.Wheat ? Color.CornflowerBlue : Color.White;
-        _potatoSprite.Color = _gameState.SelectedCrop == Crop.Potato ? Color.CornflowerBlue : Color.White;
-        _carrotSprite.Color = _gameState.SelectedCrop == Crop.Carrot ? Color.CornflowerBlue : Color.White;
+        ((Sprite)_wheatButton.DefaultDrawable).Color =
+            _gameState.SelectedCrop == Crop.Wheat ? Color.CornflowerBlue : Color.White;
+        ((Sprite)_potatoButton.DefaultDrawable).Color =
+            _gameState.SelectedCrop == Crop.Potato ? Color.CornflowerBlue : Color.White;
+        ((Sprite)_carrotButton.DefaultDrawable).Color =
+            _gameState.SelectedCrop == Crop.Carrot ? Color.CornflowerBlue : Color.White;
 
         _wheatButton.Update(gameTime);
         _potatoButton.Update(gameTime);
@@ -60,43 +59,31 @@ public class Crops : IUpdateable
 
     private void InitButtons(IShape shape, Game game, float margin)
     {
-        _wheatSprite = new Sprite(
-            new Shape(shape.Position, new Vector2(shape.Width / 8, shape.Height), shape.Origin),
-            AssetManager.LoadTexture(game.Content, "wheat")
-        );
         _wheatButton = new Button(
-            _wheatSprite,
-            _wheatSprite,
+            new Shape(shape.Position, new Vector2(shape.Width / 8, shape.Height), shape.Origin),
+            new Sprite(Shape.Zero, AssetManager.LoadTexture(game.Content, "wheat")),
             new Sprite(Shape.Zero, AssetManager.LoadTexture(game.Content, "wheat")) { Color = Color.LawnGreen }
         );
         _wheatButton.OnClick += () => _gameState.SelectedCrop = Crop.Wheat;
 
-        _potatoSprite = new Sprite(
+        _potatoButton = new Button(
             new Shape(
                 new Point((int)(shape.X + margin * 3), shape.Y),
                 new Vector2(shape.Width / 8, shape.Height),
                 shape.Origin
             ),
-            AssetManager.LoadTexture(game.Content, "potato")
-        );
-        _potatoButton = new Button(
-            _potatoSprite,
-            _potatoSprite,
+            new Sprite(Shape.Zero, AssetManager.LoadTexture(game.Content, "potato")),
             new Sprite(Shape.Zero, AssetManager.LoadTexture(game.Content, "potato")) { Color = Color.LawnGreen }
         );
         _potatoButton.OnClick += () => _gameState.SelectedCrop = Crop.Potato;
 
-        _carrotSprite = new Sprite(
+        _carrotButton = new Button(
             new Shape(
                 new Point((int)(shape.X + margin * 6), shape.Y),
                 new Vector2(shape.Width / 8, shape.Height),
                 shape.Origin
             ),
-            AssetManager.LoadTexture(game.Content, "carrot")
-        );
-        _carrotButton = new Button(
-            _carrotSprite,
-            _carrotSprite,
+            new Sprite(Shape.Zero, AssetManager.LoadTexture(game.Content, "carrot")),
             new Sprite(Shape.Zero, AssetManager.LoadTexture(game.Content, "carrot")) { Color = Color.LawnGreen }
         );
         _carrotButton.OnClick += () => _gameState.SelectedCrop = Crop.Carrot;
