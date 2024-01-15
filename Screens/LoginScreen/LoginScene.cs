@@ -3,6 +3,8 @@ using Homework.Elements;
 using Homework.Interfaces;
 using Homework.Mixins;
 using Homework.Scenes;
+using Homework.Screens.MainScreen;
+using Homework.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -13,6 +15,7 @@ public class LoginScene : IScene
     private readonly App _app;
 
     private readonly SceneManager _sceneManager;
+    private readonly StateManager _stateManager;
 
     private Logo _logo;
     private UsernameTextBox _textBox;
@@ -21,10 +24,11 @@ public class LoginScene : IScene
     private QuitButton _quitButton;
 
 
-    public LoginScene(App app, SceneManager sceneManager)
+    public LoginScene(App app, SceneManager sceneManager, StateManager stateManager)
     {
         _app = app;
         _sceneManager = sceneManager;
+        _stateManager = stateManager;
     }
 
     public void Init()
@@ -35,17 +39,23 @@ public class LoginScene : IScene
         const int margin = -50;
         const int lineHeight = 110;
 
-        _logo = new Logo(_app, new Shape(
-            new Point(width / 2, height / 2 + 100),
-            new Vector2(width * 2 / 3, height / 2),
-            new Vector2(0, 1)
-        ));
+        _logo = new Logo(
+            _app,
+            new Shape(
+                new Point(width / 2, height / 2 + 100),
+                new Vector2(width * 2 / 3, height / 2),
+                new Vector2(0, 1)
+            )
+        );
 
-        _textBox = new UsernameTextBox(_app, new Shape(
-            new Point(width / 2, height / 2 + 100),
-            new Vector2(width / 5, lineHeight),
-            new Vector2(0, -1)
-        ));
+        _textBox = new UsernameTextBox(
+            _app,
+            new Shape(
+                new Point(width / 2, height / 2 + 100),
+                new Vector2(width / 5, lineHeight),
+                new Vector2(0, -1)
+            )
+        );
 
         _label = new Label(
             new Shape(
@@ -57,22 +67,29 @@ public class LoginScene : IScene
             "Name:"
         );
 
-        _loginButton = new LoginButton(_app, new Shape(
-            _textBox.Position + new Point((int)_textBox.Width + margin, 0),
-            new Vector2(150, _textBox.Height),
-            _textBox.Origin
-        ), () =>
-        {
-            _app.GameState.PlayerName = _textBox.Text;
-            _sceneManager.ActivateScene("main");
-        });
+        _loginButton = new LoginButton(_app,
+            new Shape(
+                _textBox.Position + new Point((int)_textBox.Width + margin, 0),
+                new Vector2(150, _textBox.Height),
+                _textBox.Origin
+            ),
+            () =>
+            {
+                _stateManager.LoadState(_textBox.Text);
+                _sceneManager.Add(new MainScene(_app, _app.GameState), "main");
+                _sceneManager.ActivateScene("main");
+            }
+        );
 
-        _quitButton = new QuitButton(new Shape(
+        _quitButton = new QuitButton(
+            new Shape(
                 new Point(width, 0),
                 new Vector2(width / 15, height / 15),
                 new Vector2(1, -1)
-            ), AssetManager.LoadFont(_app.Content, "DancingScript"),
-            () => _app.Exit());
+            ),
+            AssetManager.LoadFont(_app.Content, "DancingScript"),
+            () => _app.Exit()
+        );
     }
 
     public void Update(GameTime gameTime)

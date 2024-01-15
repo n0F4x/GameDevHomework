@@ -13,9 +13,23 @@ public class Farm : IUpdateable
 
     public Farm(IShape shape, Game game)
     {
-        _grounds.AddRange(MakeQuarter(shape.Position, new Vector2(shape.Width / 2, shape.Height), game));
-        _grounds.AddRange(MakeQuarter(shape.Position + new Point((int)shape.Width / 2, 0),
-            new Vector2(shape.Width / 2, shape.Height), game));
+        _grounds.AddRange(
+            MakeQuarter(
+                shape.Position,
+                new Vector2(shape.Width / 2,
+                    shape.Height
+                ),
+                game
+            )
+        );
+        _grounds.AddRange(
+            MakeQuarter(
+                shape.Position + new Point((int)shape.Width / 2, 0
+                ),
+                new Vector2(shape.Width / 2, shape.Height),
+                game
+            )
+        );
     }
 
     private static IEnumerable<Ground> MakeQuarter(Point position, Vector2 size, Game game)
