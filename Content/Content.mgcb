@@ -37,18 +37,6 @@
 /processorParam:TextureFormat=Color
 /build:../Resources/Assets/carrot.png;carrot.png
 
-#begin ../Resources/Assets/crop.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../Resources/Assets/crop.png;crop.png
-
 #begin ../Resources/Assets/CsP.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -168,6 +156,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../Resources/Assets/potato.png;potato.png
+
+#begin ../Resources/Assets/wheat.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Resources/Assets/wheat.png;wheat.png
 
 #begin DancingScript.spritefont
 /importer:FontDescriptionImporter

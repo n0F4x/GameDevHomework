@@ -15,7 +15,13 @@ public class LoginButton : Button
                 Vector2.Zero
             ),
             AssetManager.LoadTexture(app.Content, "login_btn")
-        ))
+        ), new Sprite(
+            new Shape(
+                Point.Zero,
+                Vector2.Zero
+            ),
+            AssetManager.LoadTexture(app.Content, "login_btn")
+        ) { Color = Color.SkyBlue })
     {
         OnClick += onClick;
     }

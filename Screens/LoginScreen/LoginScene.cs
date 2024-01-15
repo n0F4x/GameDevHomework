@@ -69,7 +69,7 @@ public class LoginScene : IScene
 
         _quitButton = new QuitButton(new Shape(
                 new Point(width, 0),
-                new Vector2(100, 75),
+                new Vector2(width / 15, height / 15),
                 new Vector2(1, -1)
             ), AssetManager.LoadFont(_app.Content, "DancingScript"),
             () => _app.Exit());

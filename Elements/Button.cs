@@ -12,8 +12,8 @@ public class Button : ShapeGroup, IElement
 {
     public delegate void HandleClick();
 
-    private readonly IDrawable _defaultDrawable;
-    private readonly IDrawable _hoveredDrawable;
+    public IDrawable DefaultDrawable { get; }
+    public IDrawable HoveredDrawable { get; }
 
     private bool _pressed;
     private bool _hovered;
@@ -24,8 +24,8 @@ public class Button : ShapeGroup, IElement
     public Button(IShape shape, IDrawable defaultDrawable, IDrawable hoveredDrawable = null)
         : base(shape, hoveredDrawable != null ? new List<IShape> { defaultDrawable, hoveredDrawable } : new List<IShape> { defaultDrawable })
     {
-        _defaultDrawable = defaultDrawable;
-        _hoveredDrawable = hoveredDrawable ?? defaultDrawable;
+        DefaultDrawable = defaultDrawable;
+        HoveredDrawable = hoveredDrawable ?? defaultDrawable;
     }
 
     public void Update(GameTime gameTime)
@@ -48,11 +48,11 @@ public class Button : ShapeGroup, IElement
     {
         if (_hovered)
         {
-            _hoveredDrawable.Draw(gameTime, spriteBatch);
+            HoveredDrawable.Draw(gameTime, spriteBatch);
         }
         else
         {
-            _defaultDrawable.Draw(gameTime, spriteBatch);
+            DefaultDrawable.Draw(gameTime, spriteBatch);
         }
     }
 
