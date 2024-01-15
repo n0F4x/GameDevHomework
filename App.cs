@@ -36,7 +36,7 @@ public class App : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         _sceneManager.Add(new Screens.LoginScreen.LoginScene(this, _sceneManager), "login");
-        _sceneManager.Add(new MainScene(GameState), "main");
+        _sceneManager.Add(new MainScene(this, GameState), "main");
         _sceneManager.ActivateScene("login");
     }
 
