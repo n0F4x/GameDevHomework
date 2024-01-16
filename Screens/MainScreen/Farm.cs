@@ -10,6 +10,20 @@ namespace Homework.Screens.MainScreen;
 public class Farm : IUpdatable
 {
     private readonly List<Ground> _grounds = new();
+    private bool _active = true;
+
+    public bool Active
+    {
+        get => _active;
+        set
+        {
+            _active = value;
+            foreach (var ground in _grounds)
+            {
+                ground.IsActive = _active;
+            }
+        }
+    }
 
     public Farm(IShape shape, Game game, GameState gameState)
     {

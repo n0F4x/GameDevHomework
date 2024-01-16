@@ -59,7 +59,7 @@ public class App : Game
     {
         GraphicsDevice.Clear(Color.Black);
 
-        _spriteBatch.Begin();
+        _spriteBatch.Begin(SpriteSortMode.FrontToBack);
 
         _sceneManager.Draw(gameTime, _spriteBatch);
 

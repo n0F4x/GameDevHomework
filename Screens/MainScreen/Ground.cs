@@ -13,6 +13,8 @@ public class Ground : Button
     private Crop? _crop;
     private readonly Random _random = new();
 
+    public bool IsActive { get; set; } = true;
+
     public Crop? Crop
     {
         get => _crop;
@@ -46,7 +48,10 @@ public class Ground : Button
 
     public override void Update(GameTime gameTime)
     {
-        base.Update(gameTime);
+        if (IsActive)
+        {
+            base.Update(gameTime);
+        }
 
         Crop?.Update(gameTime);
     }

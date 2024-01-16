@@ -18,6 +18,7 @@ public class MainScene : IScene
 
     private House _house;
     private Farm _farm;
+    private Shop _shop;
 
     public MainScene(App app, GameState gameState)
     {
@@ -48,7 +49,11 @@ public class MainScene : IScene
             new Shape(new Point((int)(width / 2 - _quitButton.Width / 2), 0), new Vector2(width / 3, height / 4),
                 new Vector2(0, -1)),
             _app,
-            () => { }
+            () =>
+            {
+                _shop.Hidden = !_shop.Hidden;
+                _farm.Active = !_farm.Active;
+            }
         );
 
         _cropStats = new CropStats(
@@ -69,6 +74,14 @@ public class MainScene : IScene
             _app,
             _app.GameState
         );
+
+        _shop = new Shop(
+            new Shape(
+                new Point(width / 2, height / 2),
+                new Vector2(width * 2 / 3, height * 2 / 3)
+            ),
+            _app
+        );
     }
 
     public void Update(GameTime gameTime)
@@ -77,6 +90,7 @@ public class MainScene : IScene
         _house.Update(gameTime);
         _cropStats.Update(gameTime);
         _farm.Update(gameTime);
+        _shop.Update(gameTime);
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -86,5 +100,6 @@ public class MainScene : IScene
         _house.Draw(gameTime, spriteBatch);
         _cropStats.Draw(gameTime, spriteBatch);
         _farm.Draw(gameTime, spriteBatch);
+        _shop.Draw(gameTime, spriteBatch);
     }
 }

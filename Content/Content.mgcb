@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:../Resources/Assets/Bastya.png;Bastya.png
 
+#begin ../Resources/Assets/bolt.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Resources/Assets/bolt.png;bolt.png
+
 #begin ../Resources/Assets/carrot.png
 /importer:TextureImporter
 /processor:TextureProcessor
