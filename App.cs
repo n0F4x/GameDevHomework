@@ -1,5 +1,4 @@
 ﻿using Homework.Scenes;
-using Homework.Screens.MainScreen;
 using Homework.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -59,7 +58,7 @@ public class App : Game
     {
         GraphicsDevice.Clear(Color.Black);
 
-        _spriteBatch.Begin(SpriteSortMode.FrontToBack);
+        _spriteBatch.Begin();
 
         _sceneManager.Draw(gameTime, _spriteBatch);
 

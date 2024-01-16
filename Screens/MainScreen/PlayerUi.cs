@@ -13,10 +13,10 @@ public class PlayerUi
 
     private readonly Sprite _icon;
     private readonly Label _label;
-    private readonly Button _moneyIcon;
+    private readonly Sprite _moneyIcon;
     private readonly Label _moneyLabel;
 
-    public PlayerUi(Game game, IShape shape, GameState gameState, Button.HandleClick onMoneyClick)
+    public PlayerUi(Game game, IShape shape, GameState gameState)
     {
         _gameState = gameState;
 
@@ -24,13 +24,10 @@ public class PlayerUi
         _label = MakePlayerLabel(game, shape, gameState.PlayerName);
         _moneyIcon = MakeMoneyIcon(game, shape);
         _moneyLabel = MakeMoneyLabel(game, shape, gameState.Money);
-
-        _moneyIcon.OnClick += onMoneyClick;
     }
 
     public void Update(GameTime gameTime)
     {
-        _moneyIcon.Update(gameTime);
         _moneyLabel.Text = _gameState.Money.ToString();
     }
 
@@ -63,19 +60,15 @@ public class PlayerUi
         );
     }
 
-    private static Button MakeMoneyIcon(Game game, IShape shape)
+    private static Sprite MakeMoneyIcon(Game game, IShape shape)
     {
-        return new Button(
-            new Shape(new Point(0, (int)(shape.Height / 2)), new Vector2(shape.Height / 2, shape.Height / 2),
-                shape.Origin),
-            new Sprite(
-                Shape.Zero,
-                AssetManager.LoadTexture(game.Content, "CsP")
+        return new Sprite(
+            new Shape(
+                new Point(0, (int)(shape.Height / 2)),
+                new Vector2(shape.Height / 2, shape.Height / 2),
+                shape.Origin
             ),
-            new Sprite(
-                Shape.Zero,
-                AssetManager.LoadTexture(game.Content, "CsP")
-            ) { Color = Color.LawnGreen }
+            AssetManager.LoadTexture(game.Content, "CsP")
         );
     }
 

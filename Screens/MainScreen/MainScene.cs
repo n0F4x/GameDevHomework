@@ -35,8 +35,7 @@ public class MainScene : IScene
         _playerUi = new PlayerUi(
             _app,
             new Shape(Point.Zero, new Vector2(width / 4, lineHeight * 2), new Vector2(-1, -1)),
-            _gameState,
-            ShowShop
+            _gameState
         );
 
         _quitButton = new QuitButton(new Shape(
@@ -77,7 +76,8 @@ public class MainScene : IScene
                 new Point(width / 2, height / 2),
                 new Vector2(width * 2 / 3, height * 2 / 3)
             ),
-            _app
+            _app,
+            _app.GameState
         );
     }
 
