@@ -1,4 +1,5 @@
 ﻿#nullable enable
+using System;
 using Homework.Elements;
 using Homework.Interfaces;
 using Homework.States;
@@ -10,6 +11,7 @@ namespace Homework.Screens.MainScreen;
 public class Ground : Button
 {
     private Crop? _crop;
+    private readonly Random _random = new();
 
     public Crop? Crop
     {
@@ -37,7 +39,7 @@ public class Ground : Button
         OnClick += () =>
         {
             if (Crop is not { IsFullyGrown: true }) return;
-            gameState.CropStats[Crop.Type] += 2;
+            gameState.CropStats[Crop.Type] += 1 + RandomFactor();
             _crop = null;
         };
     }
@@ -54,5 +56,10 @@ public class Ground : Button
         base.Draw(gameTime, spriteBatch);
 
         Crop?.Draw(gameTime, spriteBatch);
+    }
+
+    private int RandomFactor()
+    {
+        return _random.Next(10) == 0 ? 1 : 0;
     }
 }
