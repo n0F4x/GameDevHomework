@@ -34,8 +34,9 @@ public class MainScene : IScene
 
         _playerUi = new PlayerUi(
             _app,
-            new Shape(Point.Zero, new Vector2(width / 4, lineHeight), new Vector2(-1, -1)),
-            _gameState
+            new Shape(Point.Zero, new Vector2(width / 4, lineHeight * 2), new Vector2(-1, -1)),
+            _gameState,
+            ShowShop
         );
 
         _quitButton = new QuitButton(new Shape(
@@ -49,11 +50,7 @@ public class MainScene : IScene
             new Shape(new Point((int)(width / 2 - _quitButton.Width / 2), 0), new Vector2(width / 3, height / 4),
                 new Vector2(0, -1)),
             _app,
-            () =>
-            {
-                _shop.Hidden = !_shop.Hidden;
-                _farm.Active = !_farm.Active;
-            }
+            ShowShop
         );
 
         _cropStats = new CropStats(
@@ -86,6 +83,7 @@ public class MainScene : IScene
 
     public void Update(GameTime gameTime)
     {
+        _playerUi.Update(gameTime);
         _quitButton.Update(gameTime);
         _house.Update(gameTime);
         _cropStats.Update(gameTime);
@@ -101,5 +99,11 @@ public class MainScene : IScene
         _cropStats.Draw(gameTime, spriteBatch);
         _farm.Draw(gameTime, spriteBatch);
         _shop.Draw(gameTime, spriteBatch);
+    }
+
+    private void ShowShop()
+    {
+        _shop.Hidden = !_shop.Hidden;
+        _farm.Active = !_farm.Active;
     }
 }

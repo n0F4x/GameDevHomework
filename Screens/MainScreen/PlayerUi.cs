@@ -9,19 +9,43 @@ namespace Homework.Screens.MainScreen;
 
 public class PlayerUi
 {
+    private readonly GameState _gameState;
+
     private readonly Sprite _icon;
     private readonly Label _label;
+    private readonly Button _moneyIcon;
+    private readonly Label _moneyLabel;
 
-    public PlayerUi(Game game, IShape shape, GameState gameState)
+    public PlayerUi(Game game, IShape shape, GameState gameState, Button.HandleClick onMoneyClick)
     {
+        _gameState = gameState;
+
         _icon = MakePlayerIcon(game, shape);
         _label = MakePlayerLabel(game, shape, gameState.PlayerName);
+        _moneyIcon = MakeMoneyIcon(game, shape);
+        _moneyLabel = MakeMoneyLabel(game, shape, gameState.Money);
+
+        _moneyIcon.OnClick += onMoneyClick;
+    }
+
+    public void Update(GameTime gameTime)
+    {
+        _moneyIcon.Update(gameTime);
+        _moneyLabel.Text = _gameState.Money.ToString();
+    }
+
+    public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    {
+        _icon.Draw(gameTime, spriteBatch);
+        _label.Draw(gameTime, spriteBatch);
+        _moneyIcon.Draw(gameTime, spriteBatch);
+        _moneyLabel.Draw(gameTime, spriteBatch);
     }
 
     private static Sprite MakePlayerIcon(Game game, IShape shape)
     {
         return new Sprite(
-            new Shape(Point.Zero, new Vector2(shape.Height, shape.Height), shape.Origin),
+            new Shape(Point.Zero, new Vector2(shape.Height / 2, shape.Height / 2), shape.Origin),
             AssetManager.LoadTexture(game.Content, "player")
         );
     }
@@ -30,8 +54,8 @@ public class PlayerUi
     {
         return new Label(
             new Shape(
-                new Point((int)shape.Height + 10, 0),
-                new Vector2(shape.Width - shape.Height, shape.Height),
+                new Point((int)shape.Height / 2 + 10, 0),
+                new Vector2(shape.Width - shape.Height / 2, shape.Height / 2),
                 shape.Origin
             ),
             AssetManager.LoadFont(game.Content, "DancingScript"),
@@ -39,9 +63,32 @@ public class PlayerUi
         );
     }
 
-    public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    private static Button MakeMoneyIcon(Game game, IShape shape)
     {
-        _icon.Draw(gameTime, spriteBatch);
-        _label.Draw(gameTime, spriteBatch);
+        return new Button(
+            new Shape(new Point(0, (int)(shape.Height / 2)), new Vector2(shape.Height / 2, shape.Height / 2),
+                shape.Origin),
+            new Sprite(
+                Shape.Zero,
+                AssetManager.LoadTexture(game.Content, "CsP")
+            ),
+            new Sprite(
+                Shape.Zero,
+                AssetManager.LoadTexture(game.Content, "CsP")
+            ) { Color = Color.LawnGreen }
+        );
+    }
+
+    private static Label MakeMoneyLabel(Game game, IShape shape, int money)
+    {
+        return new Label(
+            new Shape(
+                new Point((int)shape.Height / 2 + 10, (int)shape.Height / 2),
+                new Vector2(shape.Height / 2, shape.Height / 2),
+                shape.Origin
+            ),
+            AssetManager.LoadFont(game.Content, "DancingScript"),
+            money.ToString()
+        );
     }
 }
