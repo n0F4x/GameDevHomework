@@ -4,6 +4,7 @@ using Homework.Screens.LoginScreen;
 using Homework.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Homework.Screens.MainScreen;
 
@@ -89,6 +90,8 @@ public class MainScene : IScene
         _cropStats.Update(gameTime);
         _farm.Update(gameTime);
         _shop.Update(gameTime);
+
+        HandleKeyBoard();
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -105,5 +108,22 @@ public class MainScene : IScene
     {
         _shop.Hidden = !_shop.Hidden;
         _farm.Active = !_farm.Active;
+    }
+
+    private void HandleKeyBoard()
+    {
+        var state = Keyboard.GetState();
+        if (state.IsKeyDown(Keys.D1))
+        {
+            _app.GameState.SelectedCropType = CropType.Wheat;
+        }
+        else if (state.IsKeyDown(Keys.D2))
+        {
+            _app.GameState.SelectedCropType = CropType.Potato;
+        }
+        else if (state.IsKeyDown(Keys.D3))
+        {
+            _app.GameState.SelectedCropType = CropType.Carrot;
+        }
     }
 }
