@@ -68,7 +68,6 @@ public class StateManager
             + CurrentState.CropStats[CropType.Potato]
             + " "
             + CurrentState.CropStats[CropType.Carrot]
-            + " "
         };
 
         var farms = "";
