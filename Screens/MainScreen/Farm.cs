@@ -38,10 +38,9 @@ public class Farm : IUpdateable
 
         for (var i = 0; i < 8; i++)
         {
-            if (gameState.Farms[i] != null)
-            {
-                _grounds[i].Crop = Crop.MakeCrop((CropType)gameState.Farms[i], shape, game);
-            }
+            if (gameState.Farms[i] == null) continue;
+            _grounds[i].Crop = Crop.MakeCrop((CropType)gameState.Farms[i], shape, game);
+            _grounds[i].Crop?.Grow();
         }
     }
 
