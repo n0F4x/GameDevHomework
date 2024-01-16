@@ -1,5 +1,5 @@
 ﻿namespace Homework.Interfaces;
 
-public interface IElement : IShape, IUpdateable, IDrawable
+public interface IElement : IShape, IUpdatable, IDrawable
 {
 }

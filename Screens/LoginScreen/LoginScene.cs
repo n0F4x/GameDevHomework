@@ -54,7 +54,8 @@ public class LoginScene : IScene
                 new Point(width / 2, height / 2 + 100),
                 new Vector2(width / 5, lineHeight),
                 new Vector2(0, -1)
-            )
+            ),
+            Login
         );
 
         _label = new Label(
@@ -73,12 +74,7 @@ public class LoginScene : IScene
                 new Vector2(150, _textBox.Height),
                 _textBox.Origin
             ),
-            () =>
-            {
-                _stateManager.LoadState(_textBox.Text);
-                _sceneManager.Add(new MainScene(_app, _app.GameState), "main");
-                _sceneManager.ActivateScene("main");
-            }
+            Login
         );
 
         _quitButton = new QuitButton(
@@ -106,5 +102,12 @@ public class LoginScene : IScene
         _label.Draw(gameTime, spriteBatch);
         _loginButton.Draw(gameTime, spriteBatch);
         _quitButton.Draw(gameTime, spriteBatch);
+    }
+
+    private void Login()
+    {
+        _stateManager.LoadState(_textBox.Text);
+        _sceneManager.Add(new MainScene(_app, _app.GameState), "main");
+        _sceneManager.ActivateScene("main");
     }
 }

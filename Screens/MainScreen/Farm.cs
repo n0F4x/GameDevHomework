@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Homework.Interfaces;
 using Homework.Mixins;
-using Homework.Screens.MainScreen.Crops;
 using Homework.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using IUpdateable = Homework.Interfaces.IUpdateable;
 
 namespace Homework.Screens.MainScreen;
 
-public class Farm : IUpdateable
+public class Farm : IUpdatable
 {
     private readonly List<Ground> _grounds = new();
 

@@ -2,7 +2,7 @@
 
 namespace Homework.Interfaces;
 
-public interface IUpdateable
+public interface IUpdatable
 {
     public void Update(GameTime gameTime) { }
 }

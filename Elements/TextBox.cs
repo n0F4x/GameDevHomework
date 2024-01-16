@@ -9,6 +9,8 @@ namespace Homework.Elements;
 
 public class TextBox : Label, IElement
 {
+    public delegate void HandleEnter();
+
     public class BorderOptions
     {
         public int Width = 5;
@@ -19,6 +21,8 @@ public class TextBox : Label, IElement
     private readonly BorderOptions _borderOptions;
     private List<RectangleShape> _borders;
     private bool _selected;
+
+    public event HandleEnter OnEnter;
 
     public TextBox(IShape shape, GameWindow window, GraphicsDevice graphicsDevice, SpriteFont font, string text,
         BorderOptions borderOptions) : base(
@@ -69,6 +73,11 @@ public class TextBox : Label, IElement
         if (args.Key == Keys.Back && Text.Length > 0)
         {
             Text = Text.Remove(Text.Length - 1, 1);
+        }
+
+        if (args.Key == Keys.Enter)
+        {
+            OnEnter?.Invoke();
         }
     }
 

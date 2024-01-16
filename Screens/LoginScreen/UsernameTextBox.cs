@@ -6,7 +6,7 @@ namespace Homework.Screens.LoginScreen;
 
 public class UsernameTextBox : TextBox
 {
-    public UsernameTextBox(Game app, IShape shape) : base(
+    public UsernameTextBox(Game app, IShape shape, HandleEnter onEnter) : base(
         shape,
         app.Window,
         app.GraphicsDevice,
@@ -14,5 +14,6 @@ public class UsernameTextBox : TextBox
         "",
         new BorderOptions { Width = 3, Margin = 15})
     {
+        OnEnter += onEnter;
     }
 }
