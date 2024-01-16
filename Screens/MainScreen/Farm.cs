@@ -40,7 +40,7 @@ public class Farm : IUpdateable
         {
             if (gameState.Farms[i] != null)
             {
-                _grounds[i].Crop = ToCrop((CropType)gameState.Farms[i], shape, game);
+                _grounds[i].Crop = Crop.MakeCrop((CropType)gameState.Farms[i], shape, game);
             }
         }
     }
@@ -60,14 +60,6 @@ public class Farm : IUpdateable
             ground.Draw(gameTime, spriteBatch);
         }
     }
-
-    private static Crop ToCrop(CropType type, IShape shape, Game game) => type switch
-    {
-        CropType.Wheat => new Wheat(shape, game),
-        CropType.Potato => new Potato(shape, game),
-        CropType.Carrot => new Carrot(shape, game),
-        _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
-    };
 
     private static IEnumerable<Ground> MakeQuarter(Point position, Vector2 size, Game game, GameState gameState)
     {

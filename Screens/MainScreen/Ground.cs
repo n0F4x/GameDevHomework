@@ -30,8 +30,14 @@ public class Ground : Button
     {
         OnClick += () =>
         {
+            if (Crop != null || gameState.CropStats[gameState.SelectedCropType] <= 0) return;
+            Crop = Crop.MakeCrop(gameState.SelectedCropType, this, game);
+            gameState.CropStats[gameState.SelectedCropType]--;
+        };
+        OnClick += () =>
+        {
             if (Crop is not { IsFullyGrown: true }) return;
-            gameState.CropStats[Crop.Type]++;
+            gameState.CropStats[Crop.Type] += 2;
             _crop = null;
         };
     }

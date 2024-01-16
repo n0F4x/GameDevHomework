@@ -1,6 +1,7 @@
 ﻿using System;
 using Homework.Elements;
 using Homework.Interfaces;
+using Homework.Screens.MainScreen.Crops;
 using Homework.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -38,4 +39,12 @@ public class Crop : Sprite
     {
         _growTime = _fullGrowTime;
     }
+    
+    public static Crop MakeCrop(CropType type, IShape shape, Game game) => type switch
+    {
+        CropType.Wheat => new Wheat(shape, game),
+        CropType.Potato => new Potato(shape, game),
+        CropType.Carrot => new Carrot(shape, game),
+        _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+    };
 }
