@@ -13,9 +13,7 @@ namespace Homework.Screens.LoginScreen;
 public class LoginScene : IScene
 {
     private readonly App _app;
-
     private readonly SceneManager _sceneManager;
-    private readonly StateManager _stateManager;
 
     private Logo _logo;
     private UsernameTextBox _textBox;
@@ -24,11 +22,10 @@ public class LoginScene : IScene
     private QuitButton _quitButton;
 
 
-    public LoginScene(App app, SceneManager sceneManager, StateManager stateManager)
+    public LoginScene(App app, SceneManager sceneManager)
     {
         _app = app;
         _sceneManager = sceneManager;
-        _stateManager = stateManager;
     }
 
     public void Init()
@@ -106,7 +103,7 @@ public class LoginScene : IScene
 
     private void Login()
     {
-        _stateManager.LoadState(_textBox.Text);
+        _app.StateManager.LoadState(_textBox.Text);
         _sceneManager.Add(new MainScene(_app, _app.GameState), "main");
         _sceneManager.ActivateScene("main");
     }

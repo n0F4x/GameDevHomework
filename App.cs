@@ -10,10 +10,10 @@ public class App : Game
 {
     private readonly GraphicsDeviceManager _graphics;
     private readonly SceneManager _sceneManager = new();
-    private readonly StateManager _stateManager = new();
     private SpriteBatch _spriteBatch;
 
-    public GameState GameState => _stateManager.CurrentState;
+    public StateManager StateManager { get; } = new();
+    public GameState GameState => StateManager.CurrentState;
 
     public App()
     {
@@ -37,7 +37,7 @@ public class App : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        _sceneManager.Add(new Screens.LoginScreen.LoginScene(this, _sceneManager, _stateManager), "login");
+        _sceneManager.Add(new Screens.LoginScreen.LoginScene(this, _sceneManager), "login");
         _sceneManager.ActivateScene("login");
     }
 

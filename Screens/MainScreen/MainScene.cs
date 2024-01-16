@@ -39,12 +39,18 @@ public class MainScene : IScene
             _gameState
         );
 
-        _quitButton = new QuitButton(new Shape(
+        _quitButton = new QuitButton(
+            new Shape(
                 new Point(width, 0),
                 new Vector2(width / 15, height / 15),
                 new Vector2(1, -1)
-            ), AssetManager.LoadFont(_app.Content, "DancingScript"),
-            () => _app.Exit());
+            ),
+            AssetManager.LoadFont(_app.Content, "DancingScript"),
+            () =>
+            {
+                _app.StateManager.SaveStateToFile();
+                _app.Exit();
+            });
 
         _house = new House(
             new Shape(new Point((int)(width / 2 - _quitButton.Width / 2), 0), new Vector2(width / 3, height / 4),

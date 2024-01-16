@@ -12,7 +12,7 @@ public enum CropType
 public class GameState
 {
     public string PlayerName { get; init; }
-    public int Money { get; set; } = 0;
+    public int Money { get; set; }
     public CropType SelectedCropType { get; set; }
 
     public Dictionary<CropType, int> CropStats { get; init; } =
