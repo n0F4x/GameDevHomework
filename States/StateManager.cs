@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -35,19 +34,19 @@ public class StateManager
         CurrentState = new GameState
         {
             PlayerName = playerName,
-            CropStats = new Dictionary<Crop, int>
-                { { Crop.Wheat, numbers[0] }, { Crop.Potato, numbers[1] }, { Crop.Carrot, numbers[2] } },
+            CropStats = new Dictionary<CropType, int>
+                { { CropType.Wheat, numbers[0] }, { CropType.Potato, numbers[1] }, { CropType.Carrot, numbers[2] } },
             Farms = ParseFarm(numbers.Skip(3).Take(8).ToList())
         };
     }
 
-    private static Crop?[] ParseFarm(IReadOnlyList<int> cropCodes)
+    private static CropType?[] ParseFarm(IReadOnlyList<int> cropCodes)
     {
-        var result = new Crop?[8];
+        var result = new CropType?[8];
 
         for (var i = 0; i < result.Length; i++)
         {
-            result[i] = cropCodes[i] != 0 ? (Crop)(cropCodes[i] + 1) : null;
+            result[i] = cropCodes[i] != 0 ? (CropType)(cropCodes[i] - 1) : null;
         }
 
         return result;

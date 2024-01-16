@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Homework.Interfaces;
 using Homework.Mixins;
+using Homework.Screens.MainScreen.Crops;
+using Homework.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using IUpdateable = Homework.Interfaces.IUpdateable;
@@ -11,7 +14,7 @@ public class Farm : IUpdateable
 {
     private readonly List<Ground> _grounds = new();
 
-    public Farm(IShape shape, Game game)
+    public Farm(IShape shape, Game game, GameState gameState)
     {
         _grounds.AddRange(
             MakeQuarter(
@@ -19,7 +22,8 @@ public class Farm : IUpdateable
                 new Vector2(shape.Width / 2,
                     shape.Height
                 ),
-                game
+                game,
+                gameState
             )
         );
         _grounds.AddRange(
@@ -27,35 +31,18 @@ public class Farm : IUpdateable
                 shape.Position + new Point((int)shape.Width / 2, 0
                 ),
                 new Vector2(shape.Width / 2, shape.Height),
-                game
+                game,
+                gameState
             )
         );
-    }
 
-    private static IEnumerable<Ground> MakeQuarter(Point position, Vector2 size, Game game)
-    {
-        var width = size.X;
-        var height = size.Y;
-        var margin = width / 3 / 6;
-        return new[]
+        for (var i = 0; i < 8; i++)
         {
-            new Ground(
-                new Shape(position + new Point((int)(width / 3 - margin), (int)(height / 3 - margin)),
-                    new Vector2(width / 3, height / 3)),
-                game),
-            new Ground(
-                new Shape(position + new Point((int)(width * 2 / 3 + margin), (int)(height / 3 - margin)),
-                    new Vector2(width / 3, height / 3)),
-                game),
-            new Ground(
-                new Shape(position + new Point((int)(width / 3 - margin), (int)(height * 2 / 3 + margin)),
-                    new Vector2(width / 3, height / 3)),
-                game),
-            new Ground(
-                new Shape(position + new Point((int)(width * 2 / 3 + margin), (int)(height * 2 / 3 + margin)),
-                    new Vector2(width / 3, height / 3)),
-                game),
-        };
+            if (gameState.Farms[i] != null)
+            {
+                _grounds[i].Crop = ToCrop((CropType)gameState.Farms[i], shape, game);
+            }
+        }
     }
 
     public void Update(GameTime gameTime)
@@ -72,5 +59,43 @@ public class Farm : IUpdateable
         {
             ground.Draw(gameTime, spriteBatch);
         }
+    }
+
+    private static Crop ToCrop(CropType type, IShape shape, Game game) => type switch
+    {
+        CropType.Wheat => new Wheat(shape, game),
+        CropType.Potato => new Potato(shape, game),
+        CropType.Carrot => new Carrot(shape, game),
+        _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+    };
+
+    private static IEnumerable<Ground> MakeQuarter(Point position, Vector2 size, Game game, GameState gameState)
+    {
+        var width = size.X;
+        var height = size.Y;
+        var margin = width / 3 / 6;
+        return new[]
+        {
+            new Ground(
+                new Shape(position + new Point((int)(width / 3 - margin), (int)(height / 3 - margin)),
+                    new Vector2(width / 3, height / 3)),
+                game,
+                gameState),
+            new Ground(
+                new Shape(position + new Point((int)(width * 2 / 3 + margin), (int)(height / 3 - margin)),
+                    new Vector2(width / 3, height / 3)),
+                game,
+                gameState),
+            new Ground(
+                new Shape(position + new Point((int)(width / 3 - margin), (int)(height * 2 / 3 + margin)),
+                    new Vector2(width / 3, height / 3)),
+                game,
+                gameState),
+            new Ground(
+                new Shape(position + new Point((int)(width * 2 / 3 + margin), (int)(height * 2 / 3 + margin)),
+                    new Vector2(width / 3, height / 3)),
+                game,
+                gameState)
+        };
     }
 }

@@ -8,7 +8,7 @@ using IUpdateable = Homework.Interfaces.IUpdateable;
 
 namespace Homework.Screens.MainScreen;
 
-public class Crops : IUpdateable
+public class CropStats : IUpdateable
 {
     private readonly GameState _gameState;
 
@@ -20,7 +20,7 @@ public class Crops : IUpdateable
     private Label _potatoCounter;
     private Label _carrotCounter;
 
-    public Crops(IShape shape, Game game, GameState gameState)
+    public CropStats(IShape shape, Game game, GameState gameState)
     {
         _gameState = gameState;
         var margin = shape.Width / 8;
@@ -32,19 +32,19 @@ public class Crops : IUpdateable
     public void Update(GameTime gameTime)
     {
         ((Sprite)_wheatButton.DefaultDrawable).Color =
-            _gameState.SelectedCrop == Crop.Wheat ? Color.CornflowerBlue : Color.White;
+            _gameState.SelectedCropType == States.CropType.Wheat ? Color.CornflowerBlue : Color.White;
         ((Sprite)_potatoButton.DefaultDrawable).Color =
-            _gameState.SelectedCrop == Crop.Potato ? Color.CornflowerBlue : Color.White;
+            _gameState.SelectedCropType == States.CropType.Potato ? Color.CornflowerBlue : Color.White;
         ((Sprite)_carrotButton.DefaultDrawable).Color =
-            _gameState.SelectedCrop == Crop.Carrot ? Color.CornflowerBlue : Color.White;
+            _gameState.SelectedCropType == States.CropType.Carrot ? Color.CornflowerBlue : Color.White;
 
         _wheatButton.Update(gameTime);
         _potatoButton.Update(gameTime);
         _carrotButton.Update(gameTime);
 
-        _wheatCounter.Text = _gameState.CropStats[Crop.Wheat].ToString();
-        _potatoCounter.Text = _gameState.CropStats[Crop.Potato].ToString();
-        _carrotCounter.Text = _gameState.CropStats[Crop.Carrot].ToString();
+        _wheatCounter.Text = _gameState.CropStats[States.CropType.Wheat].ToString();
+        _potatoCounter.Text = _gameState.CropStats[States.CropType.Potato].ToString();
+        _carrotCounter.Text = _gameState.CropStats[States.CropType.Carrot].ToString();
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -65,7 +65,7 @@ public class Crops : IUpdateable
             new Sprite(Shape.Zero, AssetManager.LoadTexture(game.Content, "wheat")),
             new Sprite(Shape.Zero, AssetManager.LoadTexture(game.Content, "wheat")) { Color = Color.LawnGreen }
         );
-        _wheatButton.OnClick += () => _gameState.SelectedCrop = Crop.Wheat;
+        _wheatButton.OnClick += () => _gameState.SelectedCropType = States.CropType.Wheat;
 
         _potatoButton = new Button(
             new Shape(
@@ -76,7 +76,7 @@ public class Crops : IUpdateable
             new Sprite(Shape.Zero, AssetManager.LoadTexture(game.Content, "potato")),
             new Sprite(Shape.Zero, AssetManager.LoadTexture(game.Content, "potato")) { Color = Color.LawnGreen }
         );
-        _potatoButton.OnClick += () => _gameState.SelectedCrop = Crop.Potato;
+        _potatoButton.OnClick += () => _gameState.SelectedCropType = States.CropType.Potato;
 
         _carrotButton = new Button(
             new Shape(
@@ -87,7 +87,7 @@ public class Crops : IUpdateable
             new Sprite(Shape.Zero, AssetManager.LoadTexture(game.Content, "carrot")),
             new Sprite(Shape.Zero, AssetManager.LoadTexture(game.Content, "carrot")) { Color = Color.LawnGreen }
         );
-        _carrotButton.OnClick += () => _gameState.SelectedCrop = Crop.Carrot;
+        _carrotButton.OnClick += () => _gameState.SelectedCropType = States.CropType.Carrot;
     }
 
     private void InitCounters(IShape shape, Game game, float margin)
@@ -99,7 +99,7 @@ public class Crops : IUpdateable
                 shape.Origin
             ),
             AssetManager.LoadFont(game.Content, "DancingScript"),
-            _gameState.CropStats[Crop.Wheat].ToString()
+            _gameState.CropStats[States.CropType.Wheat].ToString()
         );
         _potatoCounter = new Label(
             new Shape(
@@ -108,7 +108,7 @@ public class Crops : IUpdateable
                 shape.Origin
             ),
             AssetManager.LoadFont(game.Content, "DancingScript"),
-            _gameState.CropStats[Crop.Potato].ToString()
+            _gameState.CropStats[States.CropType.Potato].ToString()
         );
         _carrotCounter = new Label(
             new Shape(
@@ -117,7 +117,7 @@ public class Crops : IUpdateable
                 shape.Origin
             ),
             AssetManager.LoadFont(game.Content, "DancingScript"),
-            _gameState.CropStats[Crop.Carrot].ToString()
+            _gameState.CropStats[States.CropType.Carrot].ToString()
         );
     }
 }

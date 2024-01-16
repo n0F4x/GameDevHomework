@@ -1,16 +1,18 @@
 ﻿using System;
 using Homework.Interfaces;
+using Homework.States;
 using Microsoft.Xna.Framework;
 
-namespace Homework.Screens.MainScreen.Plants;
+namespace Homework.Screens.MainScreen.Crops;
 
-public class Potato : Plant
+public class Potato : Crop
 {
     public Potato(IShape shape, Game game)
         : base(
             shape,
             AssetManager.LoadTexture(game.Content, "potato"),
-            new TimeSpan(0, 0, 5)
+            new TimeSpan(0, 0, 5),
+            CropType.Potato
         )
     {
     }

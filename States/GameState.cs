@@ -2,7 +2,7 @@
 
 namespace Homework.States;
 
-public enum Crop
+public enum CropType
 {
     Wheat,
     Potato,
@@ -12,10 +12,10 @@ public enum Crop
 public class GameState
 {
     public string PlayerName { get; init; }
-    public Crop SelectedCrop { get; set; }
+    public CropType SelectedCropType { get; set; }
 
-    public Dictionary<Crop, int> CropStats { get; set; } =
-        new() { { Crop.Wheat, 8 }, { Crop.Potato, 0 }, { Crop.Carrot, 0 } };
+    public Dictionary<CropType, int> CropStats { get; init; } =
+        new() { { CropType.Wheat, 8 }, { CropType.Potato, 0 }, { CropType.Carrot, 0 } };
 
-    public Crop?[] Farms = new Crop?[8];
+    public CropType?[] Farms = new CropType?[8];
 }

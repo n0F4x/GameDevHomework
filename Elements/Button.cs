@@ -28,7 +28,7 @@ public class Button : ShapeGroup, IElement
         HoveredDrawable = hoveredDrawable ?? defaultDrawable;
     }
 
-    public void Update(GameTime gameTime)
+    public virtual void Update(GameTime gameTime)
     {
         var mouseState = Mouse.GetState();
 
@@ -44,7 +44,7 @@ public class Button : ShapeGroup, IElement
         }
     }
 
-    public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         if (_hovered)
         {

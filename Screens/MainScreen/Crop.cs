@@ -1,26 +1,41 @@
 ﻿using System;
 using Homework.Elements;
 using Homework.Interfaces;
+using Homework.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Homework.Screens.MainScreen;
 
-public class Plant : Sprite
+public class Crop : Sprite
 {
+    public CropType Type { get; }
     private readonly TimeSpan _fullGrowTime;
     private TimeSpan _growTime;
 
     public bool IsFullyGrown => _growTime >= _fullGrowTime;
 
-    protected Plant(IShape shape, Texture2D texture, TimeSpan fullGrowTime) : base(shape, texture)
+    protected Crop(IShape shape, Texture2D texture, TimeSpan fullGrowTime, CropType type) : base(shape,
+        texture)
     {
+        Type = type;
         _fullGrowTime = fullGrowTime;
+        Color = new Color(Color.Gray, 120);
     }
 
     public void Update(GameTime gameTime)
     {
         _growTime = new TimeSpan(Math.Min((gameTime.ElapsedGameTime + _growTime).Ticks,
             _fullGrowTime.Ticks));
+
+        if (IsFullyGrown)
+        {
+            Color = new Color(Color.LimeGreen, 120);
+        }
+    }
+
+    public void Grow()
+    {
+        _growTime = _fullGrowTime;
     }
 }
